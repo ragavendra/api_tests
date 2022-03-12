@@ -1,3 +1,5 @@
+require 'httparty'
+
 HTTParty::Basement.default_options.update(verify: false)
 
 class ServiceBase
@@ -22,7 +24,7 @@ class ServiceBase
   end
 
   def Headers(auth_token = nil)
-     #headers = { "Content-Type" => "application/json" }
+     headers = { "Content-Type" => "application/json; charset=UTF-8" }
      #headers['X-Auth-Token'] = @data[:auth_token] if @data[:auth_token]
   end
 
@@ -100,8 +102,6 @@ class ServiceBase
   end
 
   def Get (url=Url(), headers=Headers())
-    puts url
-    puts headers
     HTTParty.get(url, headers: headers)
   end
 

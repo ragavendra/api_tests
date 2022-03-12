@@ -1,3 +1,5 @@
+require_relative 'ServiceBase'
+
 class PostsService < ServiceBase
 
 	def initialize(data)
@@ -15,13 +17,13 @@ class PostsService < ServiceBase
 		PollingGET()
 	end
 
-	def create_post
-		@resourcePath = "/cards"
+	def create_post title = "", body = "", userId = 1
 		req = { 
-			title: @data[:post_title],
-			body: @data[:post_body], 
-			userId: @data[:post_userId], 
+			title: title,
+			body: body, 
+			userId: userId 
 		}
+
 		res =  PollingPOST(req)
 		
 		if res.code == 200

@@ -30,10 +30,10 @@ OR
 
 Also you can run the individual specs or tests like below from within the api folder
 
-```ruby -Ilib specs/postsService.rb```
+```ruby specs/postsService.rb```
 
 OR
 
 For Individual spec
 
-```ruby -Ilib specs/postsService.rb --name "test_0001_Get all posts"```
+```ruby specs/postsService.rb --name "test_0001_Get all posts"```

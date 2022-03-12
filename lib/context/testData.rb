@@ -2,7 +2,7 @@ require_relative 'unique'
 
 class TestData
 
-	def self.NewDefaultHash(user_data)
+	def self.NewDefaultHash(data)
 		data = Hash.new
 		#default data with unique requirements
 		unique = Unique.instance
@@ -18,14 +18,13 @@ class TestData
 		data.store(:protocol,ENV['HTTP_PROTOCOL'] || 'https')
 
     #posts data
-		data.store(:posts_title, "")
-		data.store(:posts_body, "")
-		data.store(:posts_id, "")
-		data.store(:posts_userId, "")
-
+		data.store(:posts_id, 10)
+		data.store(:posts_userId, 1)
+    data.store(:posts_title, "Title for 101")
+    data.store(:posts_body, "Body for 101")
 	
 		#data.store(:path,' ')
-		MergeUserOverrides(data,user_data)
+		#MergeUserOverrides(data,user_data)
 		VariableSubstitution(data)
 		return data
 	end
