@@ -8,22 +8,18 @@ class PostsService < ServiceBase
 	end
 
 	def get_all_posts 
-		PollingGET()
+		GET()
 	end
 
 	def get_post 
 		@route = @route +  "#{@data[:post_id]}"
-		PollingGET()
+		GET
 	end
 
   def create_post title = "", body = "", userId = 1
-    req = { 
-      title: title,
-      body: body, 
-      userId: userId 
-    }
+    req = { title: title, body: body, userId: userId }
 
-    res =  PollingPOST(req)
+    res =  POST req
 
     if res.code == 200
       response_hash = JSON.parse(res.body, symbolize_names: true) if res.body
@@ -33,4 +29,19 @@ class PostsService < ServiceBase
     res
   end
 
+  def update_post title = "", body = "", userId = 1, postId = 1
+
+    @route = @route + postId.to_s
+
+    req = { id: postId, title: title, body: body, userId: userId }
+
+    res =  PUT req
+
+    if res.code == 200
+      response_hash = JSON.parse(res.body, symbolize_names: true) if res.body
+      @data.store(:post_id, response_hash[:id])
+    end
+
+    res
+  end
 end

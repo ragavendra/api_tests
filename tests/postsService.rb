@@ -35,7 +35,6 @@ describe 'The Posts Service' do
 	end
 
 	it 'Create a post' do
-
 		@user = PostsService.new(@data)
     title = "Title for 101"
     body = "Body for 101"
@@ -49,4 +48,21 @@ describe 'The Posts Service' do
 		assert (resHash[:title].eql? title), "Invalid title"
 		assert (resHash[:body].eql? body), "Invalid posts body"
 	end
+
+	it 'Update a post with put' do
+		@user = PostsService.new(@data)
+    title = "Title for 102"
+    body = "Body for 102"
+    userId = 1
+    postId = 1
+    res = @user.update_post title, body, userId, postId
+		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-Success"
+	
+		resHash = JSON.parse(res.body, symbolize_names: true)
+		assert resHash.has_key?(:"id")
+		assert (resHash[:userId].eql? userId), "Invalid post user id"
+		assert (resHash[:title].eql? title), "Invalid title"
+		assert (resHash[:body].eql? body), "Invalid posts body"
+	end
+
 end

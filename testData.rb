@@ -4,9 +4,6 @@ class TestData
 
 	def self.NewDefaultHash(data)
 		data = Hash.new
-		#default data with unique requirements
-		#unique = Unique.instance
-		#unique.Id(data)
 
 		#test suite defaults
 		data.store(:test_poll_attempts, 60)
