@@ -1,5 +1,5 @@
-require_relative '../lib/service/postsService'
-require_relative '../lib/context/testData'
+require_relative '../services/postsService'
+require_relative '../testData'
 #require_relative '../lib/context/User'
 require 'minitest/spec'
 require 'minitest/autorun'
@@ -11,10 +11,6 @@ describe 'The Posts Service' do
 	before do
 		testdata = Hash.new
 		@data = TestData.NewDefaultHash(testdata)
-
-		#@user = User.new(@data)
-		@user = PostsService.new(@data)
-
 	end      
 
 	after do
@@ -27,6 +23,7 @@ describe 'The Posts Service' do
   #test cases go here
 	it 'Get all posts' do
 
+		@user = PostsService.new(@data)
     res = @user.get_all_posts
 		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-OK"
 	
@@ -40,10 +37,7 @@ describe 'The Posts Service' do
 
 	it 'Create a post' do
 
-    #@data.store(:posts_id, 198)
-    #@data.store(:posts_userId, 124)
-    #@data.store(:posts_title, "Title for 101")
-    #@data.store(:posts_body, "Body for 101")
+		@user = PostsService.new(@data)
     title = "Title for 101"
     body = "Body for 101"
     userId = 124
@@ -56,6 +50,4 @@ describe 'The Posts Service' do
 		assert (resHash[:title].eql? title), "Invalid title"
 		assert (resHash[:body].eql? body), "Invalid posts body"
 	end
-
 end
-

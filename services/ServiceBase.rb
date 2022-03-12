@@ -3,6 +3,10 @@ require 'httparty'
 HTTParty::Basement.default_options.update(verify: false)
 
 class ServiceBase
+
+  attr_accessor :data
+  attr_accessor :pollingPath
+  attr_accessor :route
     
   def initialize(data)
     @data = data
