@@ -1,8 +1,8 @@
 require 'rake/testtask'
 
 #Run this file with the below command
-#HOST=cards-m3 rake test
-#HOST=cards-m3 rake test TEST=specs/cardService_specs.rb
+#HOST=jsonplaceholder.typicode.com rake test
+#HOST=jsonplaceholder.typicode.com rake test TEST=specs/postsService.rb
 
 =begin
 Rake::TestTask.new do |t|
@@ -43,19 +43,17 @@ HELP_STR
 end
 
 namespace :cards do
-	desc "Running the cards specs"
+	desc "Running all the specs"
 	Rake::TestTask.new do |t|
 		t.name = "all"
-		t.test_files = ["specs/happy_path_cards_spec.rb",
-			"specs/memberService_specs.rb",
-			"specs/cardService_specs.rb"]
+		t.test_files = ["specs/postsService.rb",
+			"specs/userService.rb",
+			"specs/commentService.rb"]
 	end
 
-	desc "Running the cards specs"
+  desc "Running the ....."
 	Rake::TestTask.new do |t|
 		t.name = "dev"
-		t.test_files = ["specs/cardService_specs.rb"]
+    t.test_files = ["specs/.......rb"]
 	end
 end
-
-task :default => 'liquid'
