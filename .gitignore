@@ -5,7 +5,7 @@ env/
 .\#
 .bundle
 
-.lock
+Gemfile.lock
 
 # RubyMine
 .idea/
