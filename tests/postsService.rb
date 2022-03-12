@@ -1,9 +1,8 @@
-require_relative '../services/postsService'
-require_relative '../testData'
-#require_relative '../lib/context/User'
 require 'minitest/spec'
 require 'minitest/autorun'
 require 'minitest/reporters'
+require_relative '../services/postsService'
+require_relative '../testData'
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 

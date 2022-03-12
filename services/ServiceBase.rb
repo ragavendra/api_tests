@@ -28,7 +28,7 @@ class ServiceBase
   end
 
   def Headers(auth_token = nil)
-     headers = { "Content-Type" => "application/json; charset=UTF-8" }
+     { "Content-Type" => "application/json; charset=UTF-8" }
      #headers['X-Auth-Token'] = @data[:auth_token] if @data[:auth_token]
   end
 
@@ -105,7 +105,7 @@ class ServiceBase
       PollResource() 
   end
 
-  def Get (url=Url(), headers=Headers())
+  def Get url = Url(), headers = Headers()
     HTTParty.get(url, headers: headers)
   end
 

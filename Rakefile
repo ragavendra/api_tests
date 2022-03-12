@@ -2,7 +2,7 @@ require 'rake/testtask'
 
 #Run this file with the below command
 #HOST=jsonplaceholder.typicode.com rake test
-#HOST=jsonplaceholder.typicode.com rake test TEST=specs/postsService.rb
+#HOST=jsonplaceholder.typicode.com rake test TEST=tests/postsService.rb
 
 =begin
 Rake::TestTask.new do |t|
@@ -42,18 +42,18 @@ HELP_STR
   puts help_str
 end
 
-namespace :cards do
-	desc "Running all the specs"
+namespace :jsonplaceholder do
+	desc "Running the posts tests"
 	Rake::TestTask.new do |t|
-		t.name = "all"
-		t.test_files = ["specs/postsService.rb",
-			"specs/userService.rb",
-			"specs/commentService.rb"]
+		t.name = "posts"
+		t.test_files = ["tests/postsService.rb"]
 	end
 
-  desc "Running the ....."
+  desc "Running the dev tests"
 	Rake::TestTask.new do |t|
 		t.name = "dev"
-    t.test_files = ["specs/.......rb"]
+    t.test_files = ["specs/.......rb",
+			"tests/userService.rb",
+			"tests/commentService.rb"]
 	end
 end
