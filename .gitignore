@@ -1,0 +1,11 @@
+env/
+!env/shell
+\#*
+.\#*
+.\#
+.bundle
+
+.lock
+
+# RubyMine
+.idea/
