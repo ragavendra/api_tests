@@ -7,58 +7,46 @@ class PostsService < ServiceBase
 		@route = "/posts"
 	end
 
-	def get_all_posts 
-		GET()
-	end
+	#def get_all_posts 
+	#end
 
 	def get_post 
-		@route = @route + "/#{@data[:post_id]}"
-		GET()
+		@route + "/#{@data[:post_id]}"
 	end
 
   def create_post title = "", body = "", userId = 1
-    req = { title: title, body: body, userId: userId }
-
-    POST req
+    { title: title, body: body, userId: userId }
   end
 
   def update_post title = "", body = "", userId = 1, postId = 1
 
     @route = @route + "/" + postId.to_s
 
-    req = { id: postId, title: title, body: body, userId: userId }
-
-    PUT req
+    { id: postId, title: title, body: body, userId: userId }
   end
 
   #lets say title and body are editable
   def update_post_fields title = "", body = "", userId = 1, postId = 1
 
-    @route = @route + "/" + postId.to_s
+    @route + "/" + postId.to_s
 
     if title.eql? ""
       req = { body: body } 
     elsif body.eql? ""
       req = { title: title } 
     end
-
-    PATCH req
   end
 
   def delete postId = 1
-    @route = @route + "/" + postId.to_s
-    DELETE() 
+    @route + "/" + postId.to_s
   end
 
 	def get_post_user userId = 1
-		@route = @route + "?userId=#{userId}"
-		GET()
+		@route + "?userId=#{userId}"
 	end
 
 	def get_comments_post postId = 1
-		@route = @route + "/#{postId}/comments"
-		GET()
+		@route + "/#{postId}/comments"
 	end
-
 
 end

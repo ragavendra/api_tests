@@ -7,13 +7,14 @@ require_relative '../testData'
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 describe 'The Posts Service' do
-	before do
-		testdata = Hash.new
-		@data = TestData.NewDefaultHash(testdata)
-	end      
+  before do
+    data_ = TestData.new
+    @data = data_.get_data
+    @post = PostsService.new(@data)
+  end      
 
-	after do
-	end
+  after do
+  end
 
 	def self.test_order
 		:alpha
@@ -22,8 +23,8 @@ describe 'The Posts Service' do
   #test cases go here
 	it 'Get all posts' do
 
-		@user = PostsService.new(@data)
-    res = @user.get_all_posts
+    #res = @post.get_all_posts
+    res = @post.GET
 		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-OK"
 	
 		resHash = JSON.parse(res.body, symbolize_names: true)
@@ -35,11 +36,11 @@ describe 'The Posts Service' do
 	end
 
 	it 'Create a post' do
-		@user = PostsService.new(@data)
     title = "Title for 101"
     body = "Body for 101"
     userId = 124
-    res = @user.create_post title, body, userId
+    req = @post.create_post title, body, userId
+    res = @post.POST req
 		assert res.code == 201, "Invalid response code #{res.inspect}, should be 201-Created"
 	
 		resHash = JSON.parse(res.body, symbolize_names: true)
@@ -50,12 +51,12 @@ describe 'The Posts Service' do
 	end
 
 	it 'Update a post with put' do
-		@user = PostsService.new(@data)
     title = "Title for 102"
     body = "Body for 102"
     userId = 1
     postId = 1
-    res = @user.update_post title, body, userId, postId
+    req = @post.update_post title, body, userId, postId
+    res = @post.PUT req
 		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-Success"
 	
 		resHash = JSON.parse(res.body, symbolize_names: true)
@@ -66,11 +67,11 @@ describe 'The Posts Service' do
 	end
 
 	it 'Update a post\'s body field with patch' do
-		@user = PostsService.new(@data)
     body = "Body for 102"
     userId = 1
     postId = 1
-    res = @user.update_post_fields "", body, userId, postId
+    req = @post.update_post_fields "", body, userId, postId
+    res = @post.PATCH req
     assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-Success"
 	
 		resHash = JSON.parse(res.body, symbolize_names: true)
@@ -80,17 +81,17 @@ describe 'The Posts Service' do
 	end
   
 	it 'Delete a post' do
-		@post = PostsService.new(@data)
     body = "Body for 102"
     postId = 1
-    res = @post.delete postId
+    @post.delete postId
+    res = @post.DELETE
     assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-Success"
 	end
 
 	it 'Get posts by user' do
-		@user = PostsService.new(@data)
     userId = 1
-    res = @user.get_post_user userId
+    @post.get_post_user userId
+    res = @post.GET
 		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-OK"
 	
 		resHash = JSON.parse(res.body, symbolize_names: true)
@@ -103,9 +104,9 @@ describe 'The Posts Service' do
   end
 
 	it 'Get comments for a post' do
-		@user = PostsService.new(@data)
     postId = 1
-    res = @user.get_comments_post postId
+    @post.get_comments_post postId
+    res = @post.GET
 		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-OK"
 	
 		resHash = JSON.parse(res.body, symbolize_names: true)
