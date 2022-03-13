@@ -65,4 +65,62 @@ describe 'The Posts Service' do
 		assert (resHash[:body].eql? body), "Invalid posts body"
 	end
 
+	it 'Update a post\'s body field with patch' do
+		@user = PostsService.new(@data)
+    body = "Body for 102"
+    userId = 1
+    postId = 1
+    res = @user.update_post_fields "", body, userId, postId
+    assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-Success"
+	
+		resHash = JSON.parse(res.body, symbolize_names: true)
+		assert resHash.has_key?(:"id")
+		assert (resHash[:userId].eql? userId), "Invalid post user id"
+		assert (resHash[:body].eql? body), "Invalid posts body"
+	end
+  
+	it 'Delete a post' do
+		@post = PostsService.new(@data)
+    body = "Body for 102"
+    postId = 1
+    res = @post.delete postId
+    assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-Success"
+	end
+
+	it 'Get posts by user' do
+		@user = PostsService.new(@data)
+    userId = 1
+    res = @user.get_post_user userId
+		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-OK"
+	
+		resHash = JSON.parse(res.body, symbolize_names: true)
+		assert resHash[0].has_key?(:"id")
+		assert (resHash[0][:userId].eql? 1), "Invalid post user id"
+
+    resHash.each do | post | 
+      assert (post[:userId].eql? 1), "Invalid post user id"
+    end
+  end
+
+	it 'Get comments for a post' do
+		@user = PostsService.new(@data)
+    postId = 1
+    res = @user.get_comments_post postId
+		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-OK"
+	
+		resHash = JSON.parse(res.body, symbolize_names: true)
+		#assert (post[:userId].eql? 1), "Invalid post user id"
+
+    resHash.each do | post | 
+      # assert (post[:userId].eql? 1), "Invalid post user id"
+      assert post.has_key?(:"id")
+      assert post.has_key?(:"postId")
+      assert post.has_key?(:"name")
+      assert post.has_key?(:"email")
+      assert post.has_key?(:"body")
+    end
+
+	end
+
+
 end

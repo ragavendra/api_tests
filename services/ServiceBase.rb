@@ -38,7 +38,11 @@ class ServiceBase
       HTTParty.put Url(), body: requestBody.to_json(), headers: Headers()
   end
 
-  def DELETE()
+  def PATCH requestBody
+    HTTParty.patch Url(), body: requestBody.to_json(), headers: Headers()
+  end
+
+  def DELETE
       HTTParty.delete Url(), headers: Headers()
   end
 
