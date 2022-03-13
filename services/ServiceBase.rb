@@ -1,7 +1,9 @@
 require 'httparty'
+require 'net/http'
 
 HTTParty::Basement.default_options.update(verify: false)
 class ServiceBase
+  public
 
   attr_accessor :data
   attr_accessor :route
@@ -26,11 +28,15 @@ class ServiceBase
   end
 
   def GET()
-    HTTParty.get Url(), headers: Headers()
+    Net::HTTP.get URI(Url())
+    #, port = @data[:port])
+    #Net::HTTP.get_response(URI(Url()), headers: Headers(), port: @data[:port])
+    #HTTParty.get Url(), headers: Headers()
   end
 
   def POST requestBody
-    HTTParty.post Url(), body: requestBody.to_json(), headers: Headers(), verify: false
+    #HTTParty.post Url(), body: requestBody.to_json(), headers: Headers(), verify: false
+    Net::HTTP.post URI(Url()), data = requestBody.to_json(), header = Headers()
   end
 
   def PUT requestBody
