@@ -1,4 +1,4 @@
-require 'minitest/spec'
+#require 'minitest/spec'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require_relative '../services/postsService'
@@ -23,7 +23,7 @@ describe 'The Posts Service' do
   #test cases go here
 	it 'Get all posts' do
 
-    #res = @post.get_all_posts
+    @post.get_all_posts
     res = @post.GET
 		assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-OK"
 	
@@ -38,7 +38,7 @@ describe 'The Posts Service' do
 	it 'Create a post' do
     title = "Title for 101"
     body = "Body for 101"
-    userId = 124
+    userId = 1
     req = @post.create_post title, body, userId
     res = @post.POST req
 		assert res.code == 201, "Invalid response code #{res.inspect}, should be 201-Created"
@@ -73,6 +73,7 @@ describe 'The Posts Service' do
     req = @post.update_post_fields "", body, userId, postId
     res = @post.PATCH req
     assert res.code == 200, "Invalid response code #{res.inspect}, should be 200-Success"
+
 	
 		resHash = JSON.parse(res.body, symbolize_names: true)
 		assert resHash.has_key?(:"id")
@@ -81,7 +82,6 @@ describe 'The Posts Service' do
 	end
   
 	it 'Delete a post' do
-    body = "Body for 102"
     postId = 1
     @post.delete postId
     res = @post.DELETE
