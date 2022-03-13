@@ -4,11 +4,11 @@ require 'rake/testtask'
 #HOST=jsonplaceholder.typicode.com rake test
 #HOST=jsonplaceholder.typicode.com rake test TEST=tests/postsService.rb
 
-=begin
+#=begin
 Rake::TestTask.new do |t|
-	  t.pattern = "specs/*_specs.rb"
+	  t.pattern = "tests/*.rb"
 end
-=end
+#=end
 
 desc "Show usage information"
 task :help do

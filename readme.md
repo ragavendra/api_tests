@@ -1,39 +1,41 @@
-to understand this project: 
+### API Automation tests
 
-The References Library (lib folder) - reused by many specs - require 'References' from your spec to use
+This repo is a rough automation testing framework for writing API tests.
 
-1.url - folder contains 1 class per URL under test. the class offers a method for every remote method this URL under test exposes. 
+The project is organized in a few folders explained below.
 
-2.service - folder contains classes to represent the JSON bodies used in requests and responses. expect that every remote method offered by a URL has 2 entityObjects, one for the request and one for the response body
+1. services - this folder contains classes to represent the services for a app where one file is a class for a test specific service like for a blog post or an user or an album or a todo
 
-3.context - some general classes to glue this together into a user driven scenario
+2. tests - here are the tests for a particular service. One tests file for one specific service
 
-The Specs (specs folder) - here are the tests - try to keep re-use out of the specs and in the References library
+### External libraries used
 
-## Running Automation tests
+1. httparty - for http calls like GET, POST, PUT, PATCH, DELETE and all. The native net/http library seems cumbersome for implementation
 
-All specs in rake file
+2. minitest - for organizing and running tests
+
+3. rake - for running tests woth a simple command
+
+### Running Automation tests
+
+Running all tests is like below. It can be assigned like in the rake file
 
 ```rake test```
 
 OR
 
-For Individual specs file
+For Individual tests file using rake
 
-```rake test TEST=specs/postsService.rb```
-
-OR
-
-We have shell scripts in the bin folder which should run the specs or tests but may not be updated.
+```rake test TEST=tests/postsService.rb```
 
 OR
 
-Also you can run the individual specs or tests like below from within the api folder
+Also you can run the individual tests file with many tests like below if you don't like using rake
 
-```ruby specs/postsService.rb```
+```ruby tests/postsService.rb```
 
 OR
 
-For Individual spec
+For running individual test
 
-```ruby specs/postsService.rb --name "test_0001_Get all posts"```
+```ruby tests/postsService.rb --name "test_0001_Get all posts"```
